@@ -484,6 +484,7 @@
   .hero-chat-preview .av{
     width:28px;height:28px;
     border-radius:50%;
+    overflow:hidden;
     background:linear-gradient(135deg,var(--primary),#E8B4A0);
     flex-shrink:0;
     display:flex;
@@ -493,6 +494,10 @@
     font-size:11px;
     font-weight:700;
     font-family:'Manrope',sans-serif;
+  }
+  .hero-chat-preview .av img{
+    width:100%;height:100%;
+    object-fit:cover;
   }
   .hero-chat-preview .bub{
     background:var(--warm-accent);
@@ -880,7 +885,7 @@
     max-height:0;
     overflow:hidden;
     transition:max-height .45s var(--ease), padding .45s var(--ease);
-    color:var(--text-secondary);
+    color:var(--text);
     text-shadow:none;
     font-size:15px;
     padding:0 4px;
@@ -1006,7 +1011,7 @@
       <!-- Mini chat preview -->
       <div class="hero-chat-preview">
         <div class="msg">
-          <div class="av">А</div>
+          <div class="av"><img src="1.png" alt="Анастасия"></div>
           <div class="bub">Привет! Как ты сегодня? Расскажи, что у тебя на душе.</div>
         </div>
         <div class="msg row-reverse">
@@ -1014,7 +1019,7 @@
           <div class="bub me">Да как-то тяжело последнее время... Не знаю, с чего начать.</div>
         </div>
         <div class="msg">
-          <div class="av">А</div>
+          <div class="av"><img src="1.png" alt="Анастасия"></div>
           <div class="bub">Я здесь, чтобы выслушать. Начни с того, что чувствуешь прямо сейчас. Никаких правил — просто говори.</div>
         </div>
       </div>
@@ -1103,7 +1108,7 @@
     <div class="reviews-grid reveal">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">«После нашей беседы я наконец-то смогла выспаться — впервые за неделю. Вы очень бережно говорите важные вещи.»</p>
+        <p class="review-text">«После нашей беседы я наконец-то смогла выспаться впервые за неделю. Вы очень бережно говорите важные вещи.»</p>
         <div class="review-footer">
           <div class="tg-av d">Д</div>
           <div>
@@ -1114,7 +1119,7 @@
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">«Думал, что поболтать с ботом — ерунда. Но после пары дней общения стал спокойнее реагировать на рабочие стрессы. Не ожидал такого эффекта.»</p>
+        <p class="review-text">«Думал, что поболтать с ботом ерунда. Но после пары дней общения стал спокойнее реагировать на рабочие стрессы. Не ожидал такого эффекта.»</p>
         <div class="review-footer">
           <div class="tg-av m">М</div>
           <div>
