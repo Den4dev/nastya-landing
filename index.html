@@ -3,9 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Психолог Анастасия — поддержка, когда она нужна</title>
+<title>AI-психолог Анастасия — поддержка 24/7 в Telegram и MAX</title>
+<meta name="description" content="AI-психолог Анастасия — бережная поддержка 24/7 в Telegram и MAX. Помогает разобраться с тревогой, стрессом, выгоранием, одиночеством и отношениями. Бесплатные сессии, разговор без осуждения и очередей.">
+<link rel="canonical" href="https://den4dev.github.io/nastya-landing/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="AI-психолог Анастасия">
+<meta property="og:title" content="AI-психолог Анастасия — место, где тебя действительно слышат">
+<meta property="og:description" content="Бережная поддержка 24/7 в Telegram и MAX: тревога, стресс, выгорание, одиночество, отношения. Бесплатные сессии, без осуждения и очередей.">
+<meta property="og:url" content="https://den4dev.github.io/nastya-landing/">
+<meta property="og:image" content="https://den4dev.github.io/nastya-landing/1.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"AI-психолог Анастасия",
+  "url":"https://den4dev.github.io/nastya-landing/",
+  "inLanguage":"ru",
+  "description":"AI-психолог Анастасия — бережная поддержка 24/7 в Telegram и MAX: тревога, стресс, выгорание, одиночество, отношения."
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -284,6 +304,7 @@
     cursor:pointer;
   }
   .contact-modal-close:hover{color:var(--text);}
+  body.modal-open{overflow:hidden;}
 
   section{scroll-margin-top:84px;}
   #reviews{scroll-margin-top:84px;}
@@ -981,6 +1002,15 @@
     position:relative;
     z-index:1;
   }
+  footer .footer-links{
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+  footer .footer-links a{font-weight:600;}
+  footer .footer-links a:hover{color:var(--primary-dark);}
 
   /* ---------- Responsive ---------- */
   @media (max-width:920px){
@@ -1035,15 +1065,16 @@
       <a href="#about">О психологе</a>
       <a href="#reviews">Отзывы</a>
       <a href="#features">Возможности</a>
+      <a href="blog.html">Статьи</a>
     </div>
     <button class="nav-cta" id="contact-open">Начать общение</button>
   </div>
 </nav>
 
-<div class="contact-modal" id="contact-modal" aria-hidden="true">
+<div class="contact-modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-hidden="true">
   <div class="contact-modal-card">
     <button class="contact-modal-close" id="contact-close" aria-label="Закрыть">×</button>
-    <h3>Начать общение</h3>
+    <h3 id="contact-modal-title">Начать общение</h3>
     <p>Выберите, где удобнее продолжить разговор.</p>
     <div class="contact-modal-actions">
       <a href="https://t.me/PsychologNastyaBot" class="btn btn-primary" target="_blank" rel="noopener">Начать в TG</a>
@@ -1175,7 +1206,7 @@
           <div class="tg-av d">Д</div>
           <div>
             <div class="review-name">Дарья</div>
-            <div class="review-date">отзыв из Telegram</div>
+            <div class="review-date">Telegram · 24 июня 2026</div>
           </div>
         </div>
       </div>
@@ -1186,7 +1217,7 @@
           <div class="tg-av m">М</div>
           <div>
             <div class="review-name">Михаил</div>
-            <div class="review-date">отзыв из Telegram</div>
+            <div class="review-date">MAX · 2 июля 2026</div>
           </div>
         </div>
       </div>
@@ -1197,7 +1228,7 @@
           <div class="tg-av s">С</div>
           <div>
             <div class="review-name">София</div>
-            <div class="review-date">отзыв из Telegram</div>
+            <div class="review-date">Telegram · 14 августа 2026</div>
           </div>
         </div>
       </div>
@@ -1216,7 +1247,7 @@
     <div class="steps reveal">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Открываете Telegram</h3>
+        <h3>Открываете мессенджер</h3>
         <p>Никаких скачиваний и регистраций — переход в один клик.</p>
       </div>
       <div class="step-arrow">→</div>
@@ -1291,7 +1322,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">Нужно скачивать приложение?<span class="plus">+</span></button>
-        <div class="faq-a">Нет. Достаточно Telegram или Max, которые у вас, скорее всего, уже установлен. Просто напишите мне по кнопкам выше.</div>
+        <div class="faq-a">Нет. Достаточно Telegram или MAX, которые у вас, скорее всего, уже установлены. Просто напишите мне по кнопкам выше.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Можно пользоваться бесплатно?<span class="plus">+</span></button>
@@ -1312,13 +1343,19 @@
     </div>
     <h2 class="reveal">Иногда достаточно просто начать разговор.</h2>
     <div class="final-actions reveal">
-      <a href="https://t.me/PsychologNastyaBot" class="btn btn-primary" target="_blank" rel="noopener">Написать Анастасии</a>
-      <a href="https://max.ru/se13515763_bot" class="btn btn-ghost" target="_blank" rel="noopener">Написать в MAX</a>
+      <a href="https://t.me/PsychologNastyaBot" class="btn btn-primary" target="_blank" rel="noopener">Начать в Telegram</a>
+      <a href="https://max.ru/se13515763_bot" class="btn btn-ghost" target="_blank" rel="noopener">Начать в MAX</a>
     </div>
   </div>
 </section>
 
 <footer>
+  <div class="footer-links">
+    <a href="blog.html">Статьи</a>
+    <a href="#about">О психологе</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#features">Возможности</a>
+  </div>
   © 2026 Психолог Анастасия. AI-ассистент для поддержки, не заменяет консультацию специалиста.
 </footer>
 
@@ -1337,15 +1374,27 @@
 
   // Contact modal
   const modal = document.getElementById('contact-modal');
-  document.getElementById('contact-open').addEventListener('click', ()=>{
+  const modalOpenBtn = document.getElementById('contact-open');
+  const modalCloseBtn = document.getElementById('contact-close');
+  let lastFocused = null;
+
+  const openModal = ()=>{
+    lastFocused = document.activeElement;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
-  });
+    document.body.classList.add('modal-open');
+    modalCloseBtn.focus();
+  };
   const closeModal = ()=>{
+    if(!modal.classList.contains('open')) return;
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
   };
-  document.getElementById('contact-close').addEventListener('click', closeModal);
+
+  modalOpenBtn.addEventListener('click', openModal);
+  modalCloseBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
 
