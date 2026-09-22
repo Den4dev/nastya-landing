@@ -12,7 +12,7 @@
 <meta property="og:title" content="AI-психолог Анастасия — место, где тебя действительно слышат">
 <meta property="og:description" content="Бережная поддержка 24/7 в Telegram и MAX: тревога, стресс, выгорание, одиночество, отношения. Бесплатные сессии, без осуждения и очередей.">
 <meta property="og:url" content="https://den4dev.github.io/nastya-landing/">
-<meta property="og:image" content="https://den4dev.github.io/nastya-landing/1.png">
+<meta property="og:image" content="https://den4dev.github.io/nastya-landing/1.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -51,25 +51,31 @@
   html{scroll-behavior:smooth;}
 
   body{
-    /* Фоновая картинка закреплена (fixed) — не искажается и не "рвётся",
-       просто аккуратно обрезается по краям под текущий экран.
-       Замените background.jpg на путь к своему изображению.
-       Меняя alpha (0.88) у rgba, регулируете "прозрачность" картинки:
-       выше значение — картинка едва заметна, ниже — проявляется сильнее. */
-    background-image:
-      linear-gradient(rgba(251,246,242,0.3), rgba(251,246,242,0.3)),
-      url('background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-color:var(--bg); /* запасной цвет, пока картинки нет / если не загрузится */
+    background-color:var(--bg); /* запасной цвет, пока картинка не загрузилась */
     color:var(--text);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
     line-height:1.5;
     overflow-x:hidden;
     position:relative;
+  }
+
+  /* Фоновая картинка комнаты — отдельным fixed-слоем.
+     Так она корректно показывается и на мобильных: iOS/Android не умеют
+     background-attachment:fixed у body, а fixed-элемент умеют.
+     Меняя alpha (0.3) у rgba, регулируете "прозрачность" картинки:
+     выше значение — картинка едва заметна, ниже — проявляется сильнее. */
+  .bg-photo{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      linear-gradient(rgba(251,246,242,0.3), rgba(251,246,242,0.3)),
+      url('background.webp');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
   }
 
   /* Ambient background blobs */
@@ -1014,9 +1020,6 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width:920px){
-    /* iOS Safari плохо поддерживает fixed-фон — на мобильных откатываемся на обычный scroll,
-       cover всё равно не даёт картинке искажаться. */
-    body{ background-attachment: scroll; }
     .hero{padding:130px 0 70px;}
     .hero-grid{grid-template-columns:1fr; gap:48px;}
     .hero h1{font-size:36px;}
@@ -1053,6 +1056,7 @@
 </head>
 <body>
 
+<div class="bg-photo"></div>
 <div class="bg-dots"></div>
 <div class="bg-blob-mid"></div>
 <div class="bg-edge bg-edge-l"></div>
@@ -1089,7 +1093,7 @@
   <div class="wrap hero-grid">
     <div class="hero-photo-wrap">
       <div class="photo photo-xl">
-        <img src="1.png" alt="Анастасия">
+        <img src="1.webp" alt="Анастасия">
       </div>
     </div>
     <div class="hero-text-panel">
@@ -1104,7 +1108,7 @@
       <!-- Mini chat preview -->
       <div class="hero-chat-preview">
         <div class="msg">
-          <div class="av"><img src="1.png" alt="Анастасия"></div>
+          <div class="av"><img src="1.webp" alt="Анастасия"></div>
           <div class="bub">Привет! Как ты сегодня? Расскажи, что у тебя на душе.</div>
         </div>
         <div class="msg row-reverse">
@@ -1112,7 +1116,7 @@
           <div class="bub me">Да как-то тяжело последнее время... Не знаю, с чего начать.</div>
         </div>
         <div class="msg">
-          <div class="av"><img src="1.png" alt="Анастасия"></div>
+          <div class="av"><img src="1.webp" alt="Анастасия"></div>
           <div class="bub">Я здесь, чтобы выслушать. Начни с того, что чувствуешь прямо сейчас. Никаких правил — просто говори.</div>
         </div>
       </div>
@@ -1131,7 +1135,7 @@
       </div>
       <div class="about-photo-wrap">
         <div class="photo photo-lg">
-          <img src="2.png" alt="Анастасия">
+          <img src="2.webp" loading="lazy" alt="Анастасия">
         </div>
       </div>
     </div>
@@ -1280,7 +1284,7 @@
         </div>
         <div class="pro-photo-wrap">
           <div class="photo photo-lg" style="width:260px;height:260px;">
-            <img src="3.png" alt="Анастасия">
+            <img src="3.webp" loading="lazy" alt="Анастасия">
           </div>
         </div>
       </div>
@@ -1338,7 +1342,7 @@
   <div class="wrap">
     <div class="final-photo-wrap reveal">
       <div class="photo photo-md">
-        <img src="4.png" alt="Анастасия">
+        <img src="4.webp" loading="lazy" alt="Анастасия">
       </div>
     </div>
     <h2 class="reveal">Иногда достаточно просто начать разговор.</h2>
