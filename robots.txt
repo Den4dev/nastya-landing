@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://den4dev.github.io/nastya-landing/sitemap.xml
+Sitemap: https://psychologai.ru/sitemap.xml
