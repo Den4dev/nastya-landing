@@ -1330,7 +1330,7 @@ window.YM_CONFIG = {
           <span class="pro-badge">Pro-режим</span>
           <h2>Для тех, кому нужна большая глубина</h2>
           <p class="desc">Когда хочется не просто поговорить, а действительно разобраться — Pro даёт больше глубины, контекста и памяти в каждом диалоге.</p>
-          <a href="https://t.me/PsychologNastyaBot?start=1" class="btn btn-primary" target="_blank" rel="noopener" data-ym-key="tg">Попробовать бесплатно</a>
+          <button type="button" id="pro-free" class="btn btn-primary" data-ym-key="tg">Попробовать бесплатно</button>
           <a href="https://t.me/PsychologNastyaBot?start=1" class="btn btn-ghost" style="margin-left:12px;" target="_blank" rel="noopener" data-ym-key="pro">Попробовать Pro</a>
         </div>
         <div class="pro-photo-wrap">
@@ -1453,6 +1453,7 @@ window.YM_CONFIG = {
   };
 
   modalOpenBtn.addEventListener('click', openModal);
+  document.getElementById('pro-free').addEventListener('click', openModal);
   modalCloseBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
