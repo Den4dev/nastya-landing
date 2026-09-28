@@ -13,14 +13,12 @@ window.YM_CONFIG = {
   counterId: 112909973,
 
   // Названия целей (событий), которые считаем отдельно от обычных кликов.
-  // Ключи (tg, max, pro, modal) трогать не надо — они привязаны к кнопкам в коде.
+  // Ключи (tg, max) трогать не надо — они привязаны к кнопкам в коде.
   // Значения справа — это те самые "названия" целей, что ты заведёшь в Метрике (Настройки → Цели → JS-событие).
   // Если в Метрике назовёшь цели по-другому — просто поменяй значения тут.
   goals: {
-    tg:    'start_tg',            // клик по кнопке Telegram
-    max:   'start_max',           // клик по кнопке MAX
-    pro:   'try_pro',             // клик по кнопке "Попробовать Pro"
-    modal: 'open_contact_modal'   // клик по кнопке "Начать общение" в шапке
+    tg:  'start_tg',   // клик по любой кнопке Telegram (включая "Начать общение" и "Попробовать Pro")
+    max: 'start_max'   // клик по любой кнопке MAX
   }
 };
 </script>
@@ -1122,7 +1120,7 @@ window.YM_CONFIG = {
       <a href="#features">Возможности</a>
       <a href="blog/">Статьи</a>
     </div>
-    <button class="nav-cta" id="contact-open" data-ym-key="modal">Начать общение</button>
+    <button class="nav-cta" id="contact-open" data-ym-key="tg">Начать общение</button>
   </div>
 </nav>
 
@@ -1331,7 +1329,7 @@ window.YM_CONFIG = {
           <h2>Для тех, кому нужна большая глубина</h2>
           <p class="desc">Когда хочется не просто поговорить, а действительно разобраться — Pro даёт больше глубины, контекста и памяти в каждом диалоге.</p>
           <button type="button" id="pro-free" class="btn btn-primary" data-ym-key="tg">Попробовать бесплатно</button>
-          <a href="https://t.me/PsychologNastyaBot?start=1" class="btn btn-ghost" style="margin-left:12px;" target="_blank" rel="noopener" data-ym-key="pro">Попробовать Pro</a>
+          <a href="https://t.me/PsychologNastyaBot?start=1" class="btn btn-ghost" style="margin-left:12px;" target="_blank" rel="noopener" data-ym-key="tg">Попробовать Pro</a>
         </div>
         <div class="pro-photo-wrap">
           <div class="photo photo-lg" style="width:260px;height:260px;">
@@ -1411,7 +1409,7 @@ window.YM_CONFIG = {
     <a href="#reviews">Отзывы</a>
     <a href="#features">Возможности</a>
   </div>
-  <a class="footer-tg" href="https://t.me/aipsycholognastya" target="_blank" rel="noopener" title="Telegram-канал">
+  <a class="footer-tg" href="https://t.me/aipsycholognastya" target="_blank" rel="noopener" title="Telegram-канал" data-ym-key="tg">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"></path></svg>
     Наш Telegram-канал
   </a>
