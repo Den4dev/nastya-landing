@@ -449,7 +449,7 @@ window.YM_CONFIG = {
   .wrap.wrap-full{max-width:none; padding-inline:max(20px, 8.4vw);}
   .nav{padding:clamp(10px,.7vw,18px) 0;}
   .brand{font-size:clamp(18px,1.45vw,32px); font-weight:700;}
-  .nav-links{gap:clamp(24px,2.2vw,48px); margin-left:auto; margin-right:clamp(24px,2.6vw,56px);}
+  .nav-links{gap:clamp(24px,2.2vw,48px); margin-inline:auto;}
   .nav-links a{font-size:clamp(14px,1vw,22px); font-weight:500; color:#5a4d44;}
   .nav-cta{font-size:clamp(14px,1vw,22px); padding:.85em 1.5em;}
 
@@ -471,7 +471,7 @@ window.YM_CONFIG = {
     border-radius:28px; padding:3.5vw 4vw;}
   /* лёгкая подсветка слева, чтобы текст читался поверх фото */
   .hero-media::after{content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
-    background:linear-gradient(90deg, rgba(255,246,238,.78) 0%, rgba(255,246,238,.42) 38%, rgba(255,246,238,0) 60%);}
+    background:linear-gradient(90deg, rgba(43,30,24,.72) 0%, rgba(43,30,24,.38) 42%, rgba(43,30,24,0) 65%);}
   .hero-inner{position:relative; z-index:3; flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(20px,1.8vw,44px);}
 
   .hero-pill{display:inline-flex; align-items:center; gap:.7em; align-self:flex-start;
@@ -482,10 +482,10 @@ window.YM_CONFIG = {
   .hero-pill i{width:.8em; height:.8em; border-radius:50%; background:var(--success); display:block;}
   .hero h1{font-family:'Inter','Manrope',sans-serif; font-weight:800;
     font-size:clamp(40px,5.3vw,150px); line-height:.93; letter-spacing:-.045em;
-    color:#1D1613; margin-bottom:clamp(18px,1.6vw,40px);}
+    color:#fff; margin-bottom:clamp(18px,1.6vw,40px);text-shadow:0 3px 30px rgba(30,20,15,.55);}
   .hero h1 span{display:block; color:var(--accent);}
-  .hero p.lead{font-size:clamp(17px,1.35vw,34px); line-height:1.32; color:#7a685c;
-    max-width:34em; margin-bottom:clamp(22px,1.7vw,44px);}
+  .hero p.lead{font-size:clamp(17px,1.35vw,34px); line-height:1.32; color:#fff;
+    max-width:34em; margin-bottom:clamp(22px,1.7vw,44px);text-shadow:0 2px 18px rgba(30,20,15,.6);}
   .hero-actions{display:flex; flex-wrap:wrap; gap:clamp(12px,.9vw,22px);}
   .hero-btn{display:inline-flex; align-items:center; gap:1.1em;
     height:clamp(58px,4.9vw,120px); padding:0 clamp(24px,2.7vw,70px);
@@ -521,6 +521,8 @@ window.YM_CONFIG = {
     .hero-media-label{right:50%; transform:translateX(50%); top:52%;}
     .hero h1{font-size:clamp(38px,11.5vw,72px);}
     .hero p.lead br{display:none;}
+    .hero h1{color:#1D1613;text-shadow:none;}
+    .hero p.lead{color:#7a685c;text-shadow:none;}
     .hero-actions{flex-direction:column;}
     .hero-btn{width:100%; min-width:0 !important;}
     .nav-links{display:none;}
@@ -1012,8 +1014,10 @@ window.YM_CONFIG = {
   <div class="wrap wrap-full">
     <div class="brand"><span class="brand-dot"></span>AI-психолог Анастасия</div>
     <div class="nav-links">
+      <a href="blog/">Статьи</a>
       <a href="#how">Как это работает</a>
       <a href="#reviews">Отзывы</a>
+      <a href="#features">Возможности</a>
     </div>
     <button class="nav-cta" id="contact-open" data-ym-key="tg">Начать общение</button>
   </div>
