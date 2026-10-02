@@ -524,6 +524,12 @@ window.YM_CONFIG = {
     .hero-actions{flex-direction:column;}
     .hero-btn{width:100%; min-width:0 !important;}
     .nav-links{display:none;}
+    /* mobile readability: no room photo behind text, hero centered */
+    .bg-photo,.bg-dots,.bg-blob-mid{display:none;}
+    .hero-pill{align-self:center;}
+    .hero h1,.hero p.lead{text-align:center;}
+    .hero p.lead{margin-inline:auto;}
+    .hero-actions{justify-content:center;}
   }
   @media (max-width:560px){
     .hero-feats{grid-template-columns:1fr;}
