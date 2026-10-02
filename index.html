@@ -63,7 +63,7 @@ window.YM_CONFIG = {
 <!-- /Yandex.Metrika counter -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FBF6F2;
@@ -445,189 +445,87 @@ window.YM_CONFIG = {
   }
   .btn-ghost:hover{transform:translateY(-2px); border-color:rgba(45,36,32,0.22);}
 
-  /* ---------- Hero ---------- */
+  /* ---------- Nav (full width) ---------- */
+  .wrap.wrap-full{max-width:none; padding-inline:max(20px, 8.4vw);}
+  .nav{padding:clamp(10px,.7vw,18px) 0;}
+  .brand{font-size:clamp(18px,1.45vw,32px); font-weight:700;}
+  .nav-links{gap:clamp(24px,2.2vw,48px); margin-left:auto; margin-right:clamp(24px,2.6vw,56px);}
+  .nav-links a{font-size:clamp(14px,1vw,22px); font-weight:500; color:#5a4d44;}
+  .nav-cta{font-size:clamp(14px,1vw,22px); padding:.85em 1.5em;}
+
+  /* ---------- Hero (full screen) ---------- */
   .hero{
-    padding:160px 0 100px;
-    position:relative;
-    overflow:hidden;
+    --accent:#B36B4D;
+    position:relative; overflow:hidden;
+    min-height:100vh; min-height:100svh;
+    padding:clamp(96px,5.9vw,160px) 0 clamp(16px,1.2vw,30px);
+    display:flex; flex-direction:column;
   }
-  .hero-glow{
-    position:absolute;
-    top:-80px; left:-80px;
-    width:500px;height:500px;
-    background:radial-gradient(circle, rgba(194,122,92,0.10) 0%, transparent 70%);
-    pointer-events:none;
-    z-index:0;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:0.9fr 1.1fr;
-    gap:60px;
-    align-items:center;
-    position:relative;
-    z-index:1;
-  }
-  .hero-photo-wrap{
-    display:flex;
-    justify-content:center;
-    position:relative;
-  }
-  .hero-photo-wrap::before{
-    content:'';
-    position:absolute;
-    width:420px;height:420px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(194,122,92,0.15), transparent 60%);
-    top:50%;left:50%;
-    transform:translate(-50%,-50%);
-    animation:glowPulse 4s ease-in-out infinite;
-  }
-  @keyframes glowPulse{
-    0%,100%{transform:translate(-50%,-50%) scale(1); opacity:0.7;}
-    50%{transform:translate(-50%,-50%) scale(1.1); opacity:1;}
-  }
-  .hero .photo-xl{
-    box-shadow:0 20px 60px -20px rgba(194,122,92,0.4);
-    animation:float 6s ease-in-out infinite;
-  }
-  @keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-  }
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:13px;
-    font-weight:600;
-    color:var(--primary-dark);
-    background:var(--primary-light);
-    padding:8px 16px;
-    border-radius:999px;
-    margin-bottom:24px;
-  }
-  .eyebrow-pulse{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--success);
-    animation:pulse 2.2s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(127,184,122,0.5);}
-    70%{box-shadow:0 0 0 8px rgba(127,184,122,0);}
-    100%{box-shadow:0 0 0 0 rgba(127,184,122,0);}
-  }
-  /* "Стеклянная" панель под текстом хиро — без неё текст сливается с фото */
-  .hero-text-panel{
-    background:rgba(255,252,248,0.85);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,0.5);
-    border-radius:28px;
-    padding:40px 40px 36px;
-  }
-  .hero h1{
-    font-size:clamp(26px, 3.2vw, 44px);
-    font-weight:800;
-    line-height:1.08;
-    margin-bottom:20px;
-    overflow-wrap:break-word;
-  }
-  .hero h1 span{color:var(--primary);}
-  .hero p.lead{
-    font-size:18px;
-    color:var(--text-secondary);
-    max-width:480px;
-    margin-bottom:32px;
-  }
-  .hero-actions{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;}
-  .hero-actions .btn{flex:1 1 0; min-width:210px; justify-content:center; white-space:nowrap;}
-  .hero-note{font-size:13px;color:var(--text-secondary);margin-top:16px;}
+  /* >>> МЕСТО ПОД ИЗОБРАЖЕНИЕ: положи файл hero.png рядом с index.html <<< */
+  .hero-media{position:absolute; inset:0; z-index:0;
+    background:linear-gradient(120deg,#FBEFE4 0%,#F4DCC8 55%,#E9C3A6 100%);}
+  .hero-media img{position:absolute; top:0; right:-8vw; height:100%; width:auto; min-width:100%; object-fit:cover; object-position:right center; z-index:1;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14vw); mask-image:linear-gradient(90deg,transparent 0,#000 14vw);}
+  .hero-media-label{position:absolute; top:42%; right:18%; text-align:center; color:rgba(122,84,62,.55);
+    font-weight:600; font-size:clamp(14px,1.2vw,24px); border:2px dashed rgba(122,84,62,.35);
+    border-radius:28px; padding:3.5vw 4vw;}
+  /* лёгкая подсветка слева, чтобы текст читался поверх фото */
+  .hero-media::after{content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(90deg, rgba(255,246,238,.78) 0%, rgba(255,246,238,.42) 38%, rgba(255,246,238,0) 60%);}
+  .hero-inner{position:relative; z-index:3; flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(20px,1.8vw,44px);}
 
-  /* Крупная, ярко выделяющаяся кнопка в хиро */
-  #hero-cta{
-    height:68px;
-    padding:0 28px;
-    font-size:19px;
-    letter-spacing:0.01em;
-    box-shadow:0 18px 40px -10px rgba(194,122,92,0.55), 0 0 0 0 rgba(194,122,92,0.35);
-    animation:ctaPulse 2.6s ease-in-out infinite;
-  }
-  #hero-cta:hover{animation-play-state:paused;}
-  @keyframes ctaPulse{
-    0%,100%{box-shadow:0 18px 40px -10px rgba(194,122,92,0.55), 0 0 0 0 rgba(194,122,92,0.28);}
-    50%{box-shadow:0 22px 48px -8px rgba(194,122,92,0.7), 0 0 0 12px rgba(194,122,92,0);}
-  }
+  .hero-pill{display:inline-flex; align-items:center; gap:.7em; align-self:flex-start;
+    font-size:clamp(13px,1vw,22px); font-weight:500; color:#2D2420;
+    background:rgba(255,250,245,.8); border:1px solid rgba(45,36,32,.07);
+    padding:.85em 1.5em; border-radius:999px; margin-bottom:clamp(14px,1.4vw,34px);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);}
+  .hero-pill i{width:.8em; height:.8em; border-radius:50%; background:var(--success); display:block;}
+  .hero h1{font-family:'Inter','Manrope',sans-serif; font-weight:800;
+    font-size:clamp(40px,5.3vw,150px); line-height:.93; letter-spacing:-.045em;
+    color:#1D1613; margin-bottom:clamp(18px,1.6vw,40px);}
+  .hero h1 span{display:block; color:var(--accent);}
+  .hero p.lead{font-size:clamp(17px,1.35vw,34px); line-height:1.32; color:#7a685c;
+    max-width:34em; margin-bottom:clamp(22px,1.7vw,44px);}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:clamp(12px,.9vw,22px);}
+  .hero-btn{display:inline-flex; align-items:center; gap:1.1em;
+    height:clamp(58px,4.9vw,120px); padding:0 clamp(24px,2.7vw,70px);
+    border-radius:clamp(18px,1.6vw,40px); color:#fff; font-family:'Inter',sans-serif;
+    font-weight:600; font-size:clamp(17px,1.45vw,34px); white-space:nowrap;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);}
+  .hero-btn:hover{transform:translateY(-2px);}
+  .hero-btn .ico{width:1.7em; height:1.7em; flex:none;}
+  .hero-btn .arr{width:1.2em; height:1.2em; flex:none; margin-left:auto; padding-left:0; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+  .hero-btn-tg{background:linear-gradient(180deg,#BC735A,#AE6246); box-shadow:0 18px 40px -14px rgba(174,98,70,.6); min-width:clamp(0px,24vw,640px);}
+  .hero-btn-max{background:#2A2220; box-shadow:0 18px 40px -14px rgba(30,22,20,.5); min-width:clamp(0px,25.5vw,680px);}
 
-  /* Вторая кнопка (MAX) — нейтральный тёмный акцент, чтобы две кнопки не сливались в одну */
-  #hero-cta-max{
-    height:68px;
-    padding:0 28px;
-    font-size:19px;
-    letter-spacing:0.01em;
-    background:var(--text);
-    color:#fff;
-    box-shadow:0 12px 30px -10px rgba(45,36,32,.35);
-  }
-  #hero-cta-max:hover{background:#1a1512; box-shadow:0 16px 36px -8px rgba(45,36,32,.45);}
+  .hero-feats{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(10px,.7vw,18px);}
+  .hero-feat{display:flex; align-items:center; gap:clamp(12px,1.1vw,28px);
+    background:rgba(255,250,245,.93); border-radius:clamp(20px,1.6vw,40px);
+    padding:clamp(14px,1.1vw,28px) clamp(14px,1.2vw,30px);
+    box-shadow:0 14px 40px -24px rgba(90,60,40,.35);}
+  .hero-feat-ico{width:clamp(48px,3.8vw,96px); height:clamp(48px,3.8vw,96px); flex:none;
+    border-radius:50%; background:rgba(194,122,92,.14); display:flex; align-items:center; justify-content:center;}
+  .hero-feat-ico svg{width:46%; height:46%; fill:none; stroke:var(--accent); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .hero-feat h3{font-family:'Inter',sans-serif; font-size:clamp(16px,1.1vw,26px); font-weight:700; line-height:1.2; margin-bottom:.4em; color:#1D1613; letter-spacing:-.01em;}
+  .hero-feat p{font-size:clamp(13px,.88vw,20px); line-height:1.4; color:#7a685c;}
 
+  @media (max-width:1100px){
+    .hero-feats{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:920px){
+    .wrap.wrap-full{padding-inline:20px;}
+    .hero{padding-top:96px;}
+    .hero-media::after{background:linear-gradient(180deg, rgba(255,246,238,.55) 0%, rgba(255,246,238,.30) 100%);}
+    .hero-media img{right:0; width:100%; min-width:0; object-position:72% center; -webkit-mask-image:none; mask-image:none;}
+    .hero-media-label{right:50%; transform:translateX(50%); top:52%;}
+    .hero h1{font-size:clamp(38px,11.5vw,72px);}
+    .hero p.lead br{display:none;}
+    .hero-actions{flex-direction:column;}
+    .hero-btn{width:100%; min-width:0 !important;}
+    .nav-links{display:none;}
+  }
   @media (max-width:560px){
-    .hero-actions .btn{min-width:100%;}
-  }
-
-  /* Mini chat preview under hero text */
-  .hero-chat-preview{
-    margin-top:32px;
-    background:#fff;
-    border-radius:16px;
-    padding:16px 18px;
-    box-shadow:0 8px 24px -12px rgba(45,36,32,0.10);
-    border:1px solid rgba(45,36,32,0.05);
-    width:100%;
-  }
-  .hero-chat-preview .msg{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin-bottom:10px;
-    font-size:13.5px;
-  }
-  .hero-chat-preview .msg:last-child{margin-bottom:0;}
-  .hero-chat-preview .av{
-    width:28px;height:28px;
-    border-radius:50%;
-    overflow:hidden;
-    background:linear-gradient(135deg,var(--primary),#E8B4A0);
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:11px;
-    font-weight:700;
-    font-family:'Manrope',sans-serif;
-  }
-  .hero-chat-preview .av img{
-    width:100%;height:100%;
-    object-fit:cover;
-  }
-  .hero-chat-preview .bub{
-    background:var(--warm-accent);
-    padding:10px 14px;
-    border-radius:14px;
-    border-bottom-left-radius:4px;
-    color:var(--text);
-    line-height:1.4;
-  }
-  .hero-chat-preview .bub.me{
-    background:var(--primary);
-    color:#fff;
-    border-bottom-left-radius:14px;
-    border-bottom-right-radius:4px;
-  }
-  .hero-chat-preview .row-reverse{flex-direction:row-reverse;}
-  .hero-chat-preview .row-reverse .bub{
-    border-bottom-left-radius:14px;
-    border-bottom-right-radius:4px;
+    .hero-feats{grid-template-columns:1fr;}
   }
 
   /* ---------- Section shared ---------- */
@@ -1069,13 +967,6 @@ window.YM_CONFIG = {
 
   /* ---------- Responsive ---------- */
   @media (max-width:920px){
-    .hero{padding:130px 0 70px;}
-    .hero-grid{grid-template-columns:1fr; gap:48px;}
-    .hero h1{font-size:36px;}
-    .hero-photo-wrap{order:-1;}
-    .photo-xl{width:240px;height:240px;}
-    .hero-photo-wrap::before{width:280px;height:280px;}
-
     .about-grid{grid-template-columns:1fr; gap:32px; padding:36px 28px;}
     .about-text h2{font-size:26px;}
     .about-photo-wrap{order:-1;}
@@ -1099,7 +990,6 @@ window.YM_CONFIG = {
     .reviews-grid{grid-template-columns:1fr;max-width:560px;}
     .final-actions{flex-direction:column;align-items:center;}
     .contact-modal-card{padding:32px 24px 28px;}
-    .hero-chat-preview{max-width:100%;}
   }
 </style>
 </head>
@@ -1112,13 +1002,11 @@ window.YM_CONFIG = {
 <div class="bg-edge bg-edge-r"></div>
 
 <nav class="nav">
-  <div class="wrap">
-    <div class="brand"><span class="brand-dot"></span>AI‑психолог Анастасия</div>
+  <div class="wrap wrap-full">
+    <div class="brand"><span class="brand-dot"></span>AI-психолог Анастасия</div>
     <div class="nav-links">
-      <a href="#about">О психологе</a>
+      <a href="#how">Как это работает</a>
       <a href="#reviews">Отзывы</a>
-      <a href="#features">Возможности</a>
-      <a href="blog/">Статьи</a>
     </div>
     <button class="nav-cta" id="contact-open" data-ym-key="tg">Начать общение</button>
   </div>
@@ -1138,36 +1026,46 @@ window.YM_CONFIG = {
 
 <!-- ====== Hero ====== -->
 <section class="hero" id="hero">
-  <div class="hero-glow"></div>
-  <div class="wrap hero-grid">
-    <div class="hero-photo-wrap">
-      <div class="photo photo-xl">
-        <img src="1.webp" alt="Анастасия">
+  <!-- МЕСТО ПОД ИЗОБРАЖЕНИЕ: положи hero.png рядом с index.html (или поменяй src). Пока файла нет — виден пунктирный блок. -->
+  <div class="hero-media">
+    <img src="hero.png" alt="AI-психолог Анастасия" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+  </div>
+
+  <div class="wrap wrap-full hero-inner">
+    <div class="hero-top">
+      <span class="hero-pill"><i></i>Онлайн • Конфиденциально • 24/7</span>
+      <h1>Место, где тебя <span>действительно</span> слышат</h1>
+      <p class="lead">Поддержка, понимание и профессиональные<br>рекомендации — в удобном мессенджере.<br>Анонимно, без осуждения, в любое время.</p>
+      <div class="hero-actions">
+        <a href="https://t.me/PsychologNastyaBot?start=1" class="hero-btn hero-btn-tg" target="_blank" rel="noopener" data-ym-key="tg">
+          <svg class="ico" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          Начать в Telegram
+          <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+        </a>
+        <a href="https://max.ru/se13515763_bot?start=1" class="hero-btn hero-btn-max" target="_blank" rel="noopener" data-ym-key="max">
+          <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4C12.4 4 4 12.4 4 24c0 4 1 7 3 10l-2 9 9-2c3 2 6 3 10 3 11.6 0 20-8.4 20-20S35.6 4 24 4z" fill="#fff"/><circle cx="24" cy="24" r="8" fill="#2A2220"/></svg>
+          Начать в MAX
+          <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
-    <div class="hero-text-panel">
-      <span class="eyebrow"><span class="eyebrow-pulse"></span>Онлайн прямо сейчас</span>
-      <h1>Место, где тебя действительно слышат.</h1>
-      <div class="hero-actions">
-        <a href="https://t.me/PsychologNastyaBot?start=1" class="btn btn-primary" id="hero-cta" target="_blank" rel="noopener" data-ym-key="tg">Начать в Telegram</a>
-        <a href="https://max.ru/se13515763_bot?start=1" class="btn" id="hero-cta-max" target="_blank" rel="noopener" data-ym-key="max">Начать в MAX</a>
-      </div>
-      <p class="hero-note">Бесплатные сессии · 24/7 · Передовая нейросеть</p>
 
-      <!-- Mini chat preview -->
-      <div class="hero-chat-preview">
-        <div class="msg">
-          <div class="av"><img src="1.webp" alt="Анастасия"></div>
-          <div class="bub">Привет! Как ты сегодня? Расскажи, что у тебя на душе.</div>
-        </div>
-        <div class="msg row-reverse">
-          <div class="av" style="background:#4A90D9;">В</div>
-          <div class="bub me">Да как-то тяжело последнее время... Не знаю, с чего начать.</div>
-        </div>
-        <div class="msg">
-          <div class="av"><img src="1.webp" alt="Анастасия"></div>
-          <div class="bub">Я здесь, чтобы выслушать. Начни с того, что чувствуешь прямо сейчас. Никаких правил — просто говори.</div>
-        </div>
+    <div class="hero-feats">
+      <div class="hero-feat">
+        <div class="hero-feat-ico"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        <div><h3>Удобный формат</h3><p>Пиши, когда тебе нужно.<br>Получай поддержку сразу.</p></div>
+      </div>
+      <div class="hero-feat">
+        <div class="hero-feat-ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+        <div><h3>Полная конфиденциальность</h3><p>Твои мысли остаются только между нами.</p></div>
+      </div>
+      <div class="hero-feat">
+        <div class="hero-feat-ico"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div>
+        <div><h3>Без осуждения</h3><p>Можно быть собой. Любые темы и чувства важны.</p></div>
+      </div>
+      <div class="hero-feat">
+        <div class="hero-feat-ico"><svg viewBox="0 0 24 24"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19l8-8"/></svg></div>
+        <div><h3>Профессиональный подход</h3><p>Психологические техники и практические рекомендации.</p></div>
       </div>
     </div>
   </div>
