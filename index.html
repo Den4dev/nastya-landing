@@ -235,9 +235,9 @@ window.YM_CONFIG = {
   /* ---------- Появление главной на ПК: короткий каскад (~1.7 с) ---------- */
   .hero h1 .ln{display:block; font-weight:inherit;}
   @media (min-width:921px) and (prefers-reduced-motion:no-preference){
-    @keyframes heroUp{from{opacity:0; transform:translateY(26px); filter:blur(8px);}}
+    @keyframes heroUp{from{opacity:0; transform:translateY(26px);}}
     @keyframes heroNav{from{opacity:0; transform:translateY(-14px);}}
-    @keyframes heroPhoto{from{opacity:0; transform:scale(1.07) translateX(2.5vw); filter:blur(6px);}}
+    @keyframes heroPhoto{from{opacity:0; transform:scale(1.04) translateX(1vw);}}
     @keyframes heroVeil{from{opacity:0;}}
     .nav{animation:heroNav .7s cubic-bezier(.22,.8,.3,1) backwards;}
     .hero-media img{animation:heroPhoto 1.5s cubic-bezier(.22,.8,.3,1) .05s backwards;}
