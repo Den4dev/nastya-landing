@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://psychologai.ru/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://psychologai.ru/ii-psiholog-anastasiya.jpg</image:loc>
+      <image:title>ИИ психолог Анастасия</image:title>
+      <image:caption>Нейросеть психолог для поддержки 24/7</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://psychologai.ru/psiholog-nejroset-anastasiya.webp</image:loc>
+      <image:title>Психолог нейросеть Анастасия</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://psychologai.ru/psiholog-iskusstvennyj-intellekt.webp</image:loc>
+      <image:title>Психолог искусственный интеллект</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://psychologai.ru/nejroset-psiholog-podderzhka.webp</image:loc>
+      <image:title>ИИ психолог — начни разговор</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://psychologai.ru/blog/</loc>
