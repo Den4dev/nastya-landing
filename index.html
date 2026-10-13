@@ -218,17 +218,17 @@ window.YM_CONFIG = {
   @media (max-width:920px){
     html.intro-lock,html.intro-lock body{overflow:hidden;}
     .intro{position:fixed; inset:0; z-index:9999; background:#fff; display:flex; align-items:center; justify-content:center;
-      padding:24px; text-align:center; animation:introOut .7s ease 4.1s forwards;}
+      padding:24px; text-align:center; animation:introOut .5s ease 1.7s forwards;}
     .intro.skip{display:none;}
     .intro-text{font-family:'Inter','Manrope',sans-serif; font-weight:800; font-size:clamp(34px,10.5vw,60px);
       line-height:1.02; letter-spacing:-.04em; color:#2D2420; max-width:100%;}
     .intro-text .w{display:inline-block; opacity:0; transform:translateY(14px); filter:blur(6px);
-      animation:introWord .8s cubic-bezier(.22,.8,.3,1) forwards;}
+      animation:introWord .5s cubic-bezier(.22,.8,.3,1) forwards;}
     .intro-text .w.big{display:block; color:#B36B4D;}
-    .intro-text .w:nth-child(1){animation-delay:.3s;}
-    .intro-text .w:nth-child(2){animation-delay:.95s;}
-    .intro-text .w:nth-child(3){animation-delay:1.5s;}
-    .intro-text .w:nth-child(4){animation-delay:2.15s;}
+    .intro-text .w:nth-child(1){animation-delay:.15s;}
+    .intro-text .w:nth-child(2){animation-delay:.5s;}
+    .intro-text .w:nth-child(3){animation-delay:.85s;}
+    .intro-text .w:nth-child(4){animation-delay:1.1s;}
   }
   @keyframes introWord{to{opacity:1; transform:none; filter:none;}}
   @keyframes introOut{to{opacity:0; visibility:hidden;}}
@@ -248,6 +248,7 @@ window.YM_CONFIG = {
       animation:heroUp .8s cubic-bezier(.22,.8,.3,1) backwards;}
     .hero-pill{animation-delay:.12s;}
     .hero h1 .ln:first-child{animation-delay:.22s;}
+    .hero h1 .ln:nth-child(2){animation-delay:.3s;}
     .hero h1 span{animation-delay:.34s;}
     .hero h1 .ln:last-child{animation-delay:.46s;}
     .hero p.lead{animation-delay:.6s;}
@@ -258,9 +259,6 @@ window.YM_CONFIG = {
     .hero-feat:nth-child(3){animation-delay:1.02s;}
     .hero-feat:nth-child(4){animation-delay:1.09s;}
   }
-
-  /* Screen-reader only: SEO description, invisible on page */
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
   /* ---------- Photo component ---------- */
   .photo{
@@ -1334,6 +1332,7 @@ window.YM_CONFIG = {
     box-shadow:0 14px 28px -10px rgba(174,98,70,0.5);
   }
   footer .footer-tg svg{width:18px;height:18px;fill:currentColor;flex:none;}
+  .footer-seo{max-width:640px;margin:0 auto 18px;}
 
   /* ---------- Responsive для блоков ниже главной ---------- */
   @media (max-width:1080px){
@@ -1375,7 +1374,7 @@ window.YM_CONFIG = {
   if(!window.matchMedia('(max-width:920px)').matches||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   el.classList.add('intro-lock');
   var done=function(){el.classList.remove('intro-lock');};
-  setTimeout(done,4800);
+  setTimeout(done,2300);
   document.addEventListener('DOMContentLoaded',function(){
     var i=document.getElementById('intro');
     if(i)i.addEventListener('click',function(){i.classList.add('skip');done();});
@@ -1428,8 +1427,8 @@ window.YM_CONFIG = {
   <div class="wrap wrap-full hero-inner">
     <div class="hero-top">
       <span class="hero-pill"><i></i>Онлайн • Конфиденциально • 24/7</span>
-      <h1><b class="ln">Место, где тебя</b><span>действительно</span><b class="ln">слышат</b></h1>
-      <p class="lead">Поддержка, понимание и профессиональные <br>рекомендации — в удобном мессенджере. <br>Анонимно, без осуждения, в любое время.</p>
+      <h1><b class="ln">ИИ-психолог Анастасия:</b><b class="ln">место, где тебя</b><span>действительно</span><b class="ln">слышат</b></h1>
+      <p class="lead">ИИ-психолог Анастасия — нейросеть для поддержки при тревоге, стрессе и выгорании. Пишите в Telegram или MAX: анонимно, без осуждения, в любое время.</p>
       <div class="hero-actions">
         <a href="https://t.me/PsychologNastyaBot?start=1" class="hero-btn hero-btn-tg" target="_blank" rel="noopener" data-ym-key="tg">
           <svg class="ico" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
@@ -1465,18 +1464,13 @@ window.YM_CONFIG = {
   </div>
 </section>
 
-<div class="sr-only">
-  <h2>ИИ психолог Анастасия — психолог нейросеть</h2>
-  <p>Психолог искусственный интеллект для поддержки в сложных ситуациях: тревога, стресс, выгорание, одиночество, отношения. Общение с нейросетью психологом доступно 24/7 в Telegram и MAX, анонимно и без осуждения.</p>
-</div>
-
 <!-- ====== Познакомимся ====== -->
 <section id="about">
   <div class="wrap">
     <div class="about-grid reveal">
       <div class="about-text">
         <span class="tag">Познакомимся</span>
-        <h2>Привет! Меня зовут Анастасия.</h2>
+        <h2>Привет! Я Анастасия — ИИ-психолог</h2>
         <p>Я&nbsp;— AI-психолог, который помогает разобраться с&nbsp;тревогой, стрессом, отношениями, переживаниями и&nbsp;просто готов выслушать в&nbsp;любое время. Здесь нет осуждения, нет очередей и&nbsp;нет неловких пауз. Только спокойный, тёплый разговор, когда он&nbsp;вам нужен.</p>
       </div>
       <div class="about-photo-wrap">
@@ -1499,7 +1493,7 @@ window.YM_CONFIG = {
       <div class="card reveal">
         <div class="card-icon">🎤</div>
         <h3>Голосовые сообщения</h3>
-        <p>Можно общаться голосовыми: отправляйте аудио, когда писать неудобно, и получайте ответы.</p>
+        <p>Можно общаться голосовыми: отправляйте аудио в Telegram, когда писать неудобно, и получайте ответы.</p>
       </div>
       <div class="card reveal">
         <div class="card-icon">🧠</div>
@@ -1710,6 +1704,7 @@ window.YM_CONFIG = {
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"></path></svg>
     Наш Telegram-канал
   </a>
+  <p class="footer-seo">Анастасия — психолог на основе искусственного интеллекта. Она помогает с тревогой, стрессом, выгоранием, одиночеством и отношениями, но не заменяет консультацию специалиста.</p>
   © 2026 Психолог Анастасия. AI-ассистент для поддержки, не заменяет консультацию специалиста.
 </footer>
 
