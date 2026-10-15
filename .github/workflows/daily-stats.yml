@@ -48,7 +48,7 @@ jobs:
                   name = str(s.get('name', s.get('ref', s.get('path', '')))).strip()
                   c = num(s.get('count', s.get('daily', 0)))
                   if c > 0 and name and name != '?':
-                      rows.append('%s — %d' % (name, c))
+                      rows.append((name, c))
               return rows[:n]
           hits = get('/stats/hits') or {}
           items = hits.get('hits') if isinstance(hits, dict) else []
@@ -65,11 +65,23 @@ jobs:
           wv = sum(vd.get(d, 0) for d in win)
           wt = sum(td.get(d, 0) for d in win)
           wm = sum(md.get(d, 0) for d in win)
+          q = '?start=%s&end=%s' % (win[0], win[-1]) if win else ''
+          camp = top(get('/stats/campaigns' + q)) if win else []
+          scope = 'окно'
+          if not camp:
+              camp = top(get('/stats/campaigns'))
+              scope = 'всего'
+          ad = sum(c for _, c in camp)
+          base_visits = wv if scope == 'окно' else tot(main)
+          organic = max(0, base_visits - ad)
           rng = '%s..%s' % (win[0][5:], win[-1][5:]) if win else 'нет данных'
           lines = ['psychologai.ru — %s' % rng, '',
-                   'Визиты: %d (всего %d)' % (wv, tot(main)),
+                   'Визиты: %d (без рекламы: %d)' % (base_visits, organic),
                    'Клики TG: %d (всего %d)' % (wt, tot(tg)),
                    'Клики MAX: %d (всего %d)' % (wm, tot(mx))]
+          if camp:
+              lines += ['', 'Кампании (%s):' % scope]
+              lines += ['%s — %d' % (n, c) for n, c in camp]
           if win:
               lines += ['', 'По дням (визиты / TG / MAX):']
               for d in win:
@@ -82,10 +94,10 @@ jobs:
           if pages:
               lines += ['', 'Страницы:'] + pages[:6]
           if win and main and main.get('path_id'):
-              q = '?start=%s&end=%s' % (win[0], win[-1])
               refs = top(get('/stats/hits/%s%s' % (main['path_id'], q)))
               if refs:
-                  lines += ['', 'Источники:'] + refs
+                  lines += ['', 'Источники:']
+                  lines += ['%s — %d' % (n, c) for n, c in refs]
               for title, candidates in [
                       ('Браузеры:', ['browser', 'browsers']),
                       ('Системы:', ['system', 'systems', 'os']),
@@ -94,7 +106,8 @@ jobs:
                   for rp in candidates:
                       rows = top(get('/stats/' + rp + q))
                       if rows:
-                          lines += ['', title] + rows
+                          lines += ['', title]
+                          lines += ['%s — %d' % (n, c) for n, c in rows]
                           break
           msg = '\n'.join(lines)
           import urllib.parse
