@@ -94,15 +94,15 @@ jobs:
           if pages:
               lines += ['', 'Страницы:'] + pages[:6]
           if win and main and main.get('path_id'):
-              refs = top(get('/stats/hits/%s%s' % (main['path_id'], q)))
+              refs = top(get('/stats/toprefs' + q))
               if refs:
                   lines += ['', 'Источники:']
                   lines += ['%s — %d' % (n, c) for n, c in refs]
               for title, candidates in [
-                      ('Браузеры:', ['browser', 'browsers']),
-                      ('Системы:', ['system', 'systems', 'os']),
-                      ('Страны:', ['location', 'locations', 'country', 'countries']),
-                      ('Экраны:', ['size', 'sizes', 'screen', 'screens'])]:
+                      ('Браузеры:', ['browsers']),
+                      ('Системы:', ['systems']),
+                      ('Страны:', ['locations']),
+                      ('Экраны:', ['sizes'])]:
                   for rp in candidates:
                       rows = top(get('/stats/' + rp + q))
                       if rows:
