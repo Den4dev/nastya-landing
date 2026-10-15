@@ -8,31 +8,27 @@ jobs:
   stats:
     runs-on: ubuntu-latest
     steps:
-      - name: Send traffic digest to Telegram
+      - name: Send counters digest to Telegram
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
         run: |
           python3 - <<'PYEOF'
           import json, os, urllib.request, urllib.parse
-          gh = os.environ['GH_PAT']
-          def get(url):
-              req = urllib.request.Request(url, headers={
-                  'Authorization': 'token ' + gh,
-                  'Accept': 'application/vnd.github+json'})
-              with urllib.request.urlopen(req, timeout=30) as r:
-                  return json.load(r)
-          v = get('https://api.github.com/repos/Den4dev/nastya-landing/traffic/views')
-          total, uniq = v.get('count', 0), v.get('uniques', 0)
-          days = v.get('views', [])
-          lines = ['psychologai.ru — визиты за 14 дней', '',
-                   'Всего: %d' % total, 'Уникальных: %d' % uniq]
-          if days:
-              last = days[-1]
-              lines.append('Последний день (%s): %d / уников %d'
-                           % (last['timestamp'][:10], last['count'], last['uniques']))
-          msg = '\n'.join(lines)
+          NS = 'psychologai-ru'
+          def get(counter):
+              try:
+                  with urllib.request.urlopen(
+                          'https://api.counterapi.dev/v1/%s/%s' % (NS, counter),
+                          timeout=30) as r:
+                      return json.load(r).get('count', 0)
+              except Exception:
+                  return '?'
+          visits = get('visits')
+          tg = get('click-tg')
+          mx = get('click-max')
+          msg = ('psychologai.ru — счётчики (всего)\n\n'
+                 'Визиты: %s\nКлики TG: %s\nКлики MAX: %s' % (visits, tg, mx))
           data = urllib.parse.urlencode(
               {'chat_id': os.environ['TG_CHAT_ID'], 'text': msg}).encode()
           urllib.request.urlopen(

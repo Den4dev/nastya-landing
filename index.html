@@ -1769,6 +1769,21 @@ window.YM_CONFIG = {
 </script>
 
 <script>
+// Счётчик визитов и кликов (CounterAPI, без ключей)
+(function(){
+  var NS='psychologai-ru';
+  function hit(c){
+    try{fetch('https://api.counterapi.dev/v1/'+NS+'/'+c+'/up',{keepalive:true}).catch(function(){});}catch(e){}
+  }
+  hit('visits');
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-ym-key]'); if(!el)return;
+    hit(el.getAttribute('data-ym-key')==='max'?'click-max':'click-tg');
+  });
+})();
+</script>
+
+<script>
 // Отправка целей Яндекс.Метрики по клику на кнопки с data-ym-key
 // Название реальной цели берётся из window.YM_CONFIG.goals (см. настройки в <head>)
 document.addEventListener('click', function (e) {
