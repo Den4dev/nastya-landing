@@ -24,53 +24,69 @@ jobs:
                   req = urllib.request.Request(BASE + path, headers=H)
                   with urllib.request.urlopen(req, timeout=30) as r:
                       return json.load(r)
-              except Exception as e:
-                  return {'_err': str(e)}
+              except Exception:
+                  return None
           def num(x):
               try:
                   return int(x)
               except Exception:
                   return 0
+          def items_of(obj):
+              if isinstance(obj, dict) and isinstance(obj.get('stats'), list):
+                  return obj['stats']
+              if isinstance(obj, list):
+                  return obj
+              return []
+          def top(obj, n=6):
+              rows = []
+              for s in items_of(obj)[:50]:
+                  if not isinstance(s, dict):
+                      continue
+                  name = s.get('name', s.get('ref', s.get('path', '?')))
+                  c = num(s.get('count', s.get('daily', s.get('visits', 0))))
+                  if c > 0:
+                      rows.append('%s — %d' % (name, c))
+              return rows[:n]
           today = datetime.date.today().isoformat()
           q = '?start=%s&end=%s' % (today, today)
-          totals = get('/stats/total' + q)
-          if isinstance(totals, dict) and totals.get('error'):
-              raise SystemExit('goatcounter api error: %s' % totals['error'])
+          totals = get('/stats/total' + q) or {}
           visits = 0
           t = totals.get('total') if isinstance(totals, dict) else None
           if isinstance(t, dict) and 'count' in t:
               visits = num(t['count'])
-          elif isinstance(totals.get('stats'), list):
-              visits = sum(num(s.get('count', s.get('daily', 0)))
-                           for s in totals['stats'] if isinstance(s, dict))
+          else:
+              for s in items_of(totals):
+                  if isinstance(s, dict):
+                      visits += num(s.get('count', s.get('daily', 0)))
           hits = get('/stats/hits' + q)
           tg = mx = 0
-          items = hits.get('stats') if isinstance(hits, dict) else None
-          if isinstance(items, list):
-              for s in items:
-                  if not isinstance(s, dict):
-                      continue
-                  p = str(s.get('path', ''))
-                  if 'click-tg' in p:
-                      tg += num(s.get('count'))
-                  if 'click-max' in p:
-                      mx += num(s.get('count'))
-          refs = []
-          for rp in ['/stats/ref' + q, '/stats/refs' + q,
-                     '/stats/referrers' + q, '/stats/referrer' + q]:
-              r = get(rp)
-              lst = r.get('stats') if isinstance(r, dict) else None
-              if isinstance(lst, list) and lst:
-                  for s in lst[:6]:
-                      if isinstance(s, dict):
-                          refs.append('%s — %s' % (
-                              s.get('name', s.get('ref', '?')), s.get('count', '?')))
-                  break
+          pages = []
+          for s in items_of(hits):
+              if not isinstance(s, dict):
+                  continue
+              p, c = str(s.get('path', '')), num(s.get('count'))
+              if 'click-tg' in p:
+                  tg += c
+              elif 'click-max' in p:
+                  mx += c
+              elif c > 0:
+                  pages.append('%s — %d' % (p or '/', c))
           lines = ['psychologai.ru — за сегодня (%s)' % today, '',
                    'Визиты: %d' % visits,
                    'Клики TG: %d' % tg, 'Клики MAX: %d' % mx]
-          if refs:
-              lines += ['', 'Источники:'] + refs
+          if pages:
+              lines += ['', 'Страницы:'] + pages[:6]
+          for title, candidates in [
+                  ('Источники:', ['ref', 'refs', 'referrer', 'referrers']),
+                  ('Браузеры:', ['browser', 'browsers']),
+                  ('Системы:', ['system', 'systems', 'os']),
+                  ('Страны:', ['location', 'locations', 'country', 'countries']),
+                  ('Экраны:', ['size', 'sizes', 'screen', 'screens'])]:
+              for rp in candidates:
+                  rows = top(get('/stats/' + rp + q))
+                  if rows:
+                      lines += ['', title] + rows
+                      break
           msg = '\n'.join(lines)
           import urllib.parse
           data = urllib.parse.urlencode(
