@@ -39,25 +39,30 @@ jobs:
               return []
           def top(obj, n=6):
               rows = []
-              for s in items_of(obj)[:50]:
+              for s in items_of(obj)[:80]:
                   if not isinstance(s, dict):
                       continue
-                  name = s.get('name', s.get('ref', s.get('path', '?')))
+                  name = str(s.get('name', s.get('ref', s.get('path', '')))).strip()
                   c = num(s.get('count', s.get('daily', s.get('visits', 0))))
-                  if c > 0:
+                  if c > 0 and name and name != '?':
                       rows.append('%s — %d' % (name, c))
               return rows[:n]
-          today = datetime.date.today().isoformat()
-          q = '?start=%s&end=%s' % (today, today)
+          today = datetime.date.today()
+          start = (today - datetime.timedelta(days=2)).isoformat()
+          end = today.isoformat()
+          q = '?start=%s&end=%s' % (start, end)
           totals = get('/stats/total' + q) or {}
-          visits = 0
+          byday, visits = {}, 0
           t = totals.get('total') if isinstance(totals, dict) else None
           if isinstance(t, dict) and 'count' in t:
               visits = num(t['count'])
-          else:
-              for s in items_of(totals):
-                  if isinstance(s, dict):
-                      visits += num(s.get('count', s.get('daily', 0)))
+          for s in items_of(totals):
+              if isinstance(s, dict) and ('day' in s or 'date' in s):
+                  d = str(s.get('day', s.get('date')))[:10]
+                  c = num(s.get('count', s.get('daily', 0)))
+                  byday[d] = byday.get(d, 0) + c
+          if not visits:
+              visits = sum(byday.values())
           hits = get('/stats/hits' + q)
           tg = mx = 0
           pages = []
@@ -69,11 +74,15 @@ jobs:
                   tg += c
               elif 'click-max' in p:
                   mx += c
-              elif c > 0:
-                  pages.append('%s — %d' % (p or '/', c))
-          lines = ['psychologai.ru — за сегодня (%s)' % today, '',
+              elif c > 0 and p:
+                  pages.append('%s — %d' % (p, c))
+          lines = ['psychologai.ru — %s..%s' % (start[5:], end[5:]), '',
                    'Визиты: %d' % visits,
                    'Клики TG: %d' % tg, 'Клики MAX: %d' % mx]
+          if byday:
+              lines += ['', 'По дням:']
+              for d in sorted(byday):
+                  lines.append('%s: %d' % (d[5:], byday[d]))
           if pages:
               lines += ['', 'Страницы:'] + pages[:6]
           for title, candidates in [
