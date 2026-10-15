@@ -8,27 +8,71 @@ jobs:
   stats:
     runs-on: ubuntu-latest
     steps:
-      - name: Send counters digest to Telegram
+      - name: Send GoatCounter digest to Telegram
         env:
+          GOAT_TOKEN: ${{ secrets.GOAT_TOKEN }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
         run: |
           python3 - <<'PYEOF'
-          import json, os, urllib.request, urllib.parse
-          NS = 'psychologai-ru'
-          def get(counter):
+          import datetime, json, os, urllib.request
+          BASE = 'https://pepa.goatcounter.com/api/v0'
+          H = {'Authorization': 'Bearer ' + os.environ['GOAT_TOKEN'],
+               'Content-Type': 'application/json'}
+          def get(path):
               try:
-                  with urllib.request.urlopen(
-                          'https://api.counterapi.dev/v1/%s/%s' % (NS, counter),
-                          timeout=30) as r:
-                      return json.load(r).get('count', 0)
+                  req = urllib.request.Request(BASE + path, headers=H)
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      return json.load(r)
+              except Exception as e:
+                  return {'_err': str(e)}
+          def num(x):
+              try:
+                  return int(x)
               except Exception:
-                  return '?'
-          visits = get('visits')
-          tg = get('click-tg')
-          mx = get('click-max')
-          msg = ('psychologai.ru — счётчики (всего)\n\n'
-                 'Визиты: %s\nКлики TG: %s\nКлики MAX: %s' % (visits, tg, mx))
+                  return 0
+          today = datetime.date.today().isoformat()
+          q = '?start=%s&end=%s' % (today, today)
+          totals = get('/stats/total' + q)
+          if isinstance(totals, dict) and totals.get('error'):
+              raise SystemExit('goatcounter api error: %s' % totals['error'])
+          visits = 0
+          t = totals.get('total') if isinstance(totals, dict) else None
+          if isinstance(t, dict) and 'count' in t:
+              visits = num(t['count'])
+          elif isinstance(totals.get('stats'), list):
+              visits = sum(num(s.get('count', s.get('daily', 0)))
+                           for s in totals['stats'] if isinstance(s, dict))
+          hits = get('/stats/hits' + q)
+          tg = mx = 0
+          items = hits.get('stats') if isinstance(hits, dict) else None
+          if isinstance(items, list):
+              for s in items:
+                  if not isinstance(s, dict):
+                      continue
+                  p = str(s.get('path', ''))
+                  if 'click-tg' in p:
+                      tg += num(s.get('count'))
+                  if 'click-max' in p:
+                      mx += num(s.get('count'))
+          refs = []
+          for rp in ['/stats/ref' + q, '/stats/refs' + q,
+                     '/stats/referrers' + q, '/stats/referrer' + q]:
+              r = get(rp)
+              lst = r.get('stats') if isinstance(r, dict) else None
+              if isinstance(lst, list) and lst:
+                  for s in lst[:6]:
+                      if isinstance(s, dict):
+                          refs.append('%s — %s' % (
+                              s.get('name', s.get('ref', '?')), s.get('count', '?')))
+                  break
+          lines = ['psychologai.ru — за сегодня (%s)' % today, '',
+                   'Визиты: %d' % visits,
+                   'Клики TG: %d' % tg, 'Клики MAX: %d' % mx]
+          if refs:
+              lines += ['', 'Источники:'] + refs
+          msg = '\n'.join(lines)
+          import urllib.parse
           data = urllib.parse.urlencode(
               {'chat_id': os.environ['TG_CHAT_ID'], 'text': msg}).encode()
           urllib.request.urlopen(
